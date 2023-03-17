@@ -17,7 +17,7 @@
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/animation_view"
         app:layout_constraintStart_toStartOf="parent"
-       />
+        />
 
     <TextView
         android:id="@+id/subHead"
@@ -41,7 +41,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/weather_alert_notification" />
+        app:lottie_rawRes="@raw/location_weather_radar" />
 
     <Button
         android:id="@+id/searchButton"
