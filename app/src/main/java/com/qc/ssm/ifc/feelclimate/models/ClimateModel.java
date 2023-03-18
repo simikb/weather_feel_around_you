@@ -1,5 +1,8 @@
 package com.qc.ssm.ifc.feelclimate.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class ClimateModel {
@@ -169,7 +172,7 @@ public class ClimateModel {
 
     public class Main {
 
-   /*     private Double temp;
+        private Double temp;
         @SerializedName("feels_like")
         @Expose
         private Double feelsLike;
@@ -229,12 +232,11 @@ public class ClimateModel {
         public void setHumidity(Integer humidity) {
             this.humidity = humidity;
         }
-*/
+
     }
 
     public class Rain {
-
-       /* @SerializedName("1h")
+        @SerializedName("1h")
         @Expose
         private Double oneH;
 
@@ -244,7 +246,7 @@ public class ClimateModel {
 
         public void set1h(Double oneH) {
             this.oneH = oneH;
-        }*/
+        }
 
     }
 

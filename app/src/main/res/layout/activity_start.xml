@@ -3,32 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="10dp"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
-
-    <TextView
-        android:id="@+id/head"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome!"
-        android:textSize="26sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/animation_view"
-        app:layout_constraintStart_toStartOf="parent"
-        />
-
-    <TextView
-        android:id="@+id/subHead"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Feel the changes around you"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/head"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+    tools:context=".ui.SearchActivity">
 
 
     <com.airbnb.lottie.LottieAnimationView
@@ -43,16 +19,50 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/location_weather_radar" />
 
+    <TextView
+        android:id="@+id/head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome!"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/animation_view" />
+
+
+    <TextView
+        android:id="@+id/subHead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Feel the changes around you"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/head" />
+
+    <FrameLayout
+        android:id="@+id/containerFragment"
+        android:layout_width="match_parent"
+        android:elevation="10dp"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/animation_view" />
     <Button
         android:id="@+id/searchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:drawableEnd="@android:drawable/ic_menu_search"
+        android:drawablePadding="10dp"
         android:text="Get weather"
         android:textAllCaps="false"
-        android:drawableEnd="@android:drawable/ic_menu_search"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/containerFragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/head" />
+        app:layout_constraintTop_toBottomOf="@+id/subHead" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
