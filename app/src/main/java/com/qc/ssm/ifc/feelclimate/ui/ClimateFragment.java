@@ -1,7 +1,5 @@
 package com.qc.ssm.ifc.feelclimate.ui;
 
-import static android.os.Build.VERSION_CODES.R;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +13,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.qc.ssm.ifc.feelclimate.databinding.ClimateHomeLayoutBinding;
 import com.qc.ssm.ifc.feelclimate.models.ClimateModel;
+import com.qc.ssm.ifc.feelclimate.utils.Utils;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -33,7 +32,6 @@ public class ClimateFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
     private ClimateModel mParam1;
@@ -53,8 +51,7 @@ public class ClimateFragment extends Fragment {
     public static ClimateFragment newInstance(ClimateModel data) {
 
         ClimateFragment fragment = new ClimateFragment();
-        if (data!=null)
-        {
+        if (data != null) {
             Bundle args = new Bundle();
             args.putSerializable(ARG_PARAM1, (Serializable) data);
             fragment.setArguments(args);
@@ -72,31 +69,39 @@ public class ClimateFragment extends Fragment {
         }
     }
 
-    private void getTime(long time) {
+    private String getTime(long time) {
         Date now = new Date(time);
         String datePattern = "yyyy-mm-dd HH-MM-SS";
         SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
-        String formattedDate = formatter.format(now);
+        return formatter.format(now);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-         binding = ClimateHomeLayoutBinding.inflate(inflater, container, false);
+        binding = ClimateHomeLayoutBinding.inflate(inflater, container, false);
         binding.degreeDiscText.setText(mParam1.getWeather().get(0).getMain());
         binding.airText.setText(mParam1.getWeather().get(0).getDescription());
         binding.nameText.setText(mParam1.getName());
-        String image=mParam1.getWeather().get(0).getIcon().trim();
-        Glide.with(getActivity().getApplicationContext()).load("https://openweathermap.org/img/wn/"+image+".png").into(binding.weatherIcon);
+        binding.degreeText.setText(getTemp(mParam1.getMain().getTemp()));
+        String image = mParam1.getWeather().get(0).getIcon().trim();
+        Glide.with(getActivity().getApplicationContext()).load(new Utils().getImageUrl(image)).into(binding.weatherIcon);
         getTime(mParam1.getSys().getSunrise());
         return binding.getRoot();
+    }
+
+    /*
+     * Kelvin temp conversion
+     */
+    private String getTemp(Double temp) {
+        int value = (int) (temp - 273.15);
+        return Integer.toString(value);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //view.findViewById(R.id)
        /* binding.layoutInclude.humidityText.setText(mParam1.getMain().getHumidity());
         binding.layoutInclude.pressureText.setText(mParam1.getMain().getPressure());*/
     }

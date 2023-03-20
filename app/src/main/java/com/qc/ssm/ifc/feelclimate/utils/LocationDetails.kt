@@ -24,7 +24,9 @@ class LocationDetails(var context: Context) {
     private var mLocationCallback: LocationCallback? = null
 
     //saved location
-    companion object{ var mCurrentLocation: Location? = null}
+    companion object {
+        var mCurrentLocation: Location? = null
+    }
 
     private var mRequestingLocationUpdates: Boolean? = null
     private val UPDATE_INTERVAL_IN_MILLISECONDS: Long = 10000
@@ -68,7 +70,6 @@ class LocationDetails(var context: Context) {
             startLocationUpdates()
         }
     }
-
 
 
     fun stopLocationUpdates() {
@@ -152,13 +153,12 @@ class LocationDetails(var context: Context) {
         return permissionState == PackageManager.PERMISSION_GRANTED || permissionCoarseState == PackageManager.PERMISSION_GRANTED
     }
 
-    fun getLat(): Long?
-    {
+    fun getLat(): Long? {
         PreferenceData.init(context);
-       return PreferenceData.readLat();
+        return PreferenceData.readLat();
     }
-    fun getLong(): Long?
-    {
+
+    fun getLong(): Long? {
         PreferenceData.init(context);
         return PreferenceData.readLong();
     }

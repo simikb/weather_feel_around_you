@@ -16,6 +16,8 @@ import com.qc.ssm.ifc.feelclimate.databinding.DialogOptionLayoutBinding
 import com.qc.ssm.ifc.feelclimate.models.ClimateModel
 import com.qc.ssm.ifc.feelclimate.utils.DataState
 import com.qc.ssm.ifc.feelclimate.utils.LocationDetails
+import com.qc.ssm.ifc.feelclimate.utils.Permissions
+import com.qc.ssm.ifc.feelclimate.utils.PreferenceData
 import com.qc.ssm.ifc.feelclimate.viewmodels.ClimateViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,20 +30,27 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel= ViewModelProvider(this)[ClimateViewModel::class.java]
-        showOptionDialog(this@SearchActivity)
+        viewModel = ViewModelProvider(this)[ClimateViewModel::class.java]
         setPopularListing()
         subscribeObservers()
-        saveLocation();
-        clicks();
+        saveLocation()
+        clicks()
+        lastSearchDisplay()
+    }
+
+    private fun lastSearchDisplay() {
+        if (PreferenceData.readLast()?.isNotEmpty() == true) {
+            PreferenceData.readLast()?.let { viewModel.getClimateUpdateByPlaceNames(it); }
+        } else
+            showOptionDialog(this@SearchActivity)
     }
 
     private fun clicks() {
         binding.searchText.setOnEditorActionListener(OnEditorActionListener { view, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                var name =binding.searchText.text.toString().trim()
+                var name = binding.searchText.text.toString().trim()
                 if (name.isNotEmpty())
-                viewModel.getClimateUpdateByPlaceNames(name);
+                    viewModel.getClimateUpdateByPlaceNames(name);
                 true
             }
             false
@@ -49,6 +58,14 @@ class SearchActivity : AppCompatActivity() {
         binding.cancelButton.setOnClickListener {
             binding.searchText.setText("")
         }
+
+        binding.locationText.setOnClickListener {
+            showOptionDialog(this@SearchActivity)
+            if (!Permissions.checkPermission(this@SearchActivity)) {
+                viewModel.setError("Please give permission to fetch location")
+            }
+        }
+
     }
 
     private fun saveLocation() {
@@ -56,14 +73,14 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun subscribeObservers() {
-       /* viewModel.climateDatum.observe(this, Observer { dataState ->
-            populateRecyclerView(dataState.data)
-        })*/
+        /* viewModel.climateDatum.observe(this, Observer { dataState ->
+             populateRecyclerView(dataState.data)
+         })*/
 
         viewModel.climateDatum.observe(this, Observer { dataState ->
             when (dataState) {
                 is DataState.Success<ClimateModel> -> {
-                   // displayLoading(false)
+                    // displayLoading(false)
                     populateView(dataState.data)
                 }
                 is DataState.Loading -> {
@@ -77,10 +94,13 @@ class SearchActivity : AppCompatActivity() {
         })
 
         viewModel.getClimateSingleData.observe(this, Observer {
-            populateView(it)
+            if (it != null)
+                populateView(it)
+            else viewModel.setError("No response found for this search")
+
         })
-       viewModel.errorResponse.observe(this, Observer {
-           Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        viewModel.errorResponse.observe(this, Observer {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         })
 
     }
@@ -95,9 +115,10 @@ class SearchActivity : AppCompatActivity() {
 
     private fun populateView(data: ClimateModel) {
         if (data != null) {
-                val ft = supportFragmentManager.beginTransaction()
-                ft.replace(binding.containerFragment.getId(), ClimateFragment.newInstance(data))
-                ft.addToBackStack(null).commit()
+            PreferenceData.writeLastQuery(data.name)
+            val ft = supportFragmentManager.beginTransaction()
+            ft.replace(binding.containerFragment.getId(), ClimateFragment.newInstance(data))
+            ft.addToBackStack(null).commit()
 
         }
     }
@@ -105,12 +126,12 @@ class SearchActivity : AppCompatActivity() {
     private fun setPopularListing() {
         binding.popularRec.layoutManager =
             StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL)
-        binding.popularRec.adapter = PopularAdapter(this@SearchActivity,listener)
+        binding.popularRec.adapter = PopularAdapter(this@SearchActivity, listener)
     }
 
     private fun showOptionDialog(context: Context) {
         if (LocationDetails(this@SearchActivity).checkPermissions()) {
-        //if (LocationDetails.mCurrentLocation!=null) {
+            //if (LocationDetails.mCurrentLocation!=null) {
             val dialog = BottomSheetDialog(context)
             var layout = DialogOptionLayoutBinding.inflate(layoutInflater)
             dialog.setContentView(layout.root)
@@ -131,11 +152,13 @@ class SearchActivity : AppCompatActivity() {
         }
 
     }
-   private var listener =object :OnItemClickListener{
+
+    private var listener = object : OnItemClickListener {
         override fun onItemClick(item: String?) {
             item?.let { viewModel.getClimateUpdateByPlaceNames(it) };
         }
     }
+
     interface OnItemClickListener {
         fun onItemClick(item: String?)
     }

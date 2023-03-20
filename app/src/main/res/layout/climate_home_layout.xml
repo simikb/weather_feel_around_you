@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/light_blue"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-   >
+    android:background="@color/light_blue"
+    android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -27,9 +26,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                app:layout_collapseMode="parallax"
+                android:layout_height="match_parent"
                 android:backgroundTint="@color/light_blue"
-                android:layout_height="match_parent">
+                app:layout_collapseMode="parallax">
 
                 <ImageView
                     android:id="@+id/weatherIcon"
@@ -48,23 +47,25 @@
                     android:id="@+id/degreeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:text="29"
                     android:textSize="100sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/degreeDiscText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Clody 30"
-                    android:textStyle="bold"
                     android:textSize="35sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/degreeText" />
+
                 <TextView
                     android:id="@+id/airText"
                     android:layout_width="wrap_content"
@@ -88,21 +89,23 @@
                     app:layout_constraintTop_toTopOf="@+id/degreeText" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <TextView
-                android:layout_width="match_parent"
-                android:text="Goa"
                 android:id="@+id/nameText"
-                android:gravity="center"
-                android:background="@color/light_blue"
+                android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:background="@color/light_blue"
+                android:gravity="center"
+                android:text="Goa"
+                android:textSize="36sp"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
-                android:textSize="36sp" />
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/include_climate_layout"
-        android:id="@+id/layoutInclude"/>
+    <include
+        android:id="@+id/layoutInclude"
+        layout="@layout/include_climate_layout" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

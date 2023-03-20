@@ -7,14 +7,25 @@ import retrofit2.http.Query
 
 interface ClimateApi {
 
-   //work
-   @GET("weather")
-     fun gets(@Query("q") query: String, @Query("appid") appId: String): Call<ClimateModel>
+
     @GET("weather")
-    fun getByLocations(@Query("lat") lat: String,@Query("lon") lon: String, @Query("appid") appId: String): Call<ClimateModel>
+    fun gets(@Query("q") query: String, @Query("appid") appId: String): Call<ClimateModel>
+
+    @GET("weather")
+    fun getByLocations(
+        @Query("lat") lat: String,
+        @Query("lon") lon: String,
+        @Query("appid") appId: String
+    ): Call<ClimateModel>
+
     @GET("weather")
     suspend fun get(@Query("q") query: String, @Query("appid") appId: String): ClimateModel
+
     @GET("weather")
-     fun getByLocation(@Query("lat") lat: String,@Query("lon") lon: String, @Query("appid") appId: String): ClimateModel
+    fun getByLocation(
+        @Query("lat") lat: String,
+        @Query("lon") lon: String,
+        @Query("appid") appId: String
+    ): ClimateModel
 
 }

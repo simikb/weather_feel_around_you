@@ -8,13 +8,13 @@
         android:id="@+id/animation_view"
         android:layout_width="match_parent"
         android:layout_height="220dp"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/currentLocationButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        android:scaleType="fitXY"
         app:lottie_rawRes="@raw/good_weather" />
 
     <Button
@@ -25,10 +25,9 @@
         android:drawableLeft="@android:drawable/presence_online"
         android:text="Weather in current location"
         android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@id/animation_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/animation_view" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

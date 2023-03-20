@@ -33,7 +33,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(clientApi)
-           // .addConverterFactory(GsonConverterFactory.create(gson))
+            // .addConverterFactory(GsonConverterFactory.create(gson))
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
 

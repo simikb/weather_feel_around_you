@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.qc.ssm.ifc.feelclimate.R
 import com.qc.ssm.ifc.feelclimate.ui.SearchActivity
 
-class PopularAdapter(private val context: Context, var listener: SearchActivity.OnItemClickListener) :
+class PopularAdapter(
+    private val context: Context,
+    var listener: SearchActivity.OnItemClickListener
+) :
     RecyclerView.Adapter<PopularAdapter.ViewHolder>() {
     var cities = arrayListOf<String>(
         "Delhi",

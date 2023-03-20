@@ -2,10 +2,6 @@ package com.qc.ssm.ifc.feelclimate.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,19 +9,16 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.qc.ssm.ifc.feelclimate.databinding.ActivityStartBinding;
-import com.qc.ssm.ifc.feelclimate.models.ClimateModel;
-import com.qc.ssm.ifc.feelclimate.utils.DataState;
 import com.qc.ssm.ifc.feelclimate.utils.LocationDetails;
 import com.qc.ssm.ifc.feelclimate.utils.Permissions;
-import com.qc.ssm.ifc.feelclimate.viewmodels.MainStateEvent;
-import com.qc.ssm.ifc.feelclimate.viewmodels.MainViewModel;
+import com.qc.ssm.ifc.feelclimate.utils.Utils;
+
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class StartActivity extends AppCompatActivity {
 
-    //  MainViewModel viewModel;
     ActivityStartBinding binding;
     LocationDetails locationDetails;
     int requestCode = 1;
@@ -36,7 +29,6 @@ public class StartActivity extends AppCompatActivity {
         binding = ActivityStartBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         locationDetails = new LocationDetails(StartActivity.this);
-        // viewModel =new ViewModelProvider(this).get(MainViewModel.class);
         if (!Permissions.checkPermission(StartActivity.this)) {
             Permissions.requestPermission(StartActivity.this, requestCode);
         }
@@ -45,7 +37,16 @@ public class StartActivity extends AppCompatActivity {
         });
 
         saveLocation();
+        getLastStatus();
 
+    }
+
+    private void getLastStatus() {
+        String lastCity = new Utils().getLastStatus(StartActivity.this);
+        if (lastCity != null) {
+            goToNext();
+            finish();
+        }
     }
 
     private void saveLocation() {

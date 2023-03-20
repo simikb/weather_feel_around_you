@@ -22,13 +22,21 @@ object PreferenceData {
         return prefs.getString(key, value)
     }
 
+    fun readLast(): String? {
+        return prefs.getString(lastQuery, "")
+    }
+
     fun readLat(): Long? {
-        return prefs.getLong(currentLat,0)
+        return prefs.getLong(currentLat, 0)
 
     }
 
     fun readLong(): Long? {
         return prefs.getLong(currentLong, 0)
+    }
+
+    fun writeLastQuery(name: String) {
+        write(lastQuery, name)
     }
 
     fun write(key: String, value: String) {
@@ -47,5 +55,6 @@ object PreferenceData {
             commit()
         }
     }
+
 
 }
