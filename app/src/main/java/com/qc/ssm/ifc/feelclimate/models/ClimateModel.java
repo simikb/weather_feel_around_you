@@ -3,9 +3,10 @@ package com.qc.ssm.ifc.feelclimate.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ClimateModel {
+public class ClimateModel implements Serializable {
 
     private Coord coord;
     private List<Weather> weather;
@@ -254,8 +255,8 @@ public class ClimateModel {
         private Integer type;
         private Integer id;
         private String country;
-        private Integer sunrise;
-        private Integer sunset;
+        private long sunrise;
+        private long sunset;
 
         public Integer getType() {
             return type;
@@ -281,15 +282,15 @@ public class ClimateModel {
             this.country = country;
         }
 
-        public Integer getSunrise() {
+        public long getSunrise() {
             return sunrise;
         }
 
-        public void setSunrise(Integer sunrise) {
+        public void setSunrise(long sunrise) {
             this.sunrise = sunrise;
         }
 
-        public Integer getSunset() {
+        public Long getSunset() {
             return sunset;
         }
 

@@ -31,6 +31,19 @@
                 android:backgroundTint="@color/light_blue"
                 android:layout_height="match_parent">
 
+                <ImageView
+                    android:id="@+id/weatherIcon"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginBottom="-30dp"
+                    android:src="@drawable/ic_launcher_background"
+                    app:layout_constraintBottom_toTopOf="@+id/degreeText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
                 <TextView
                     android:id="@+id/degreeText"
                     android:layout_width="wrap_content"
@@ -78,6 +91,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:text="Goa"
+                android:id="@+id/nameText"
                 android:gravity="center"
                 android:background="@color/light_blue"
                 android:layout_height="?attr/actionBarSize"
@@ -87,7 +101,8 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/include_climate_layout" />
+    <include layout="@layout/include_climate_layout"
+        android:id="@+id/layoutInclude"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

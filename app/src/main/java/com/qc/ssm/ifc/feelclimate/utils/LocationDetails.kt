@@ -24,7 +24,8 @@ class LocationDetails(var context: Context) {
     private var mLocationCallback: LocationCallback? = null
 
     //saved location
-    private var mCurrentLocation: Location? = null
+    companion object{ var mCurrentLocation: Location? = null}
+
     private var mRequestingLocationUpdates: Boolean? = null
     private val UPDATE_INTERVAL_IN_MILLISECONDS: Long = 10000
 
@@ -68,7 +69,7 @@ class LocationDetails(var context: Context) {
         }
     }
 
-    companion object
+
 
     fun stopLocationUpdates() {
         // Removing location updates
@@ -88,7 +89,7 @@ class LocationDetails(var context: Context) {
                 .checkLocationSettings(it)
                 .addOnSuccessListener(context as Activity) {
 
-                    Toast.makeText(context, "Started location updates!", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "Started location updates!", Toast.LENGTH_SHORT).show()
                     if (ActivityCompat.checkSelfPermission(
                             context,
                             Manifest.permission.ACCESS_FINE_LOCATION
@@ -139,7 +140,7 @@ class LocationDetails(var context: Context) {
         }
     }
 
-    private fun checkPermissions(): Boolean {
+    public fun checkPermissions(): Boolean {
         val permissionState = ActivityCompat.checkSelfPermission(
             context,
             Manifest.permission.ACCESS_FINE_LOCATION
@@ -149,5 +150,16 @@ class LocationDetails(var context: Context) {
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
         return permissionState == PackageManager.PERMISSION_GRANTED || permissionCoarseState == PackageManager.PERMISSION_GRANTED
+    }
+
+    fun getLat(): Long?
+    {
+        PreferenceData.init(context);
+       return PreferenceData.readLat();
+    }
+    fun getLong(): Long?
+    {
+        PreferenceData.init(context);
+        return PreferenceData.readLong();
     }
 }

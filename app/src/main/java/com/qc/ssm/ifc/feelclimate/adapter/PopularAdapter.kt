@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.qc.ssm.ifc.feelclimate.R
+import com.qc.ssm.ifc.feelclimate.ui.SearchActivity
 
-class PopularAdapter(private val context: Context) :
+class PopularAdapter(private val context: Context, var listener: SearchActivity.OnItemClickListener) :
     RecyclerView.Adapter<PopularAdapter.ViewHolder>() {
     var cities = arrayListOf<String>(
         "Delhi",
@@ -38,6 +39,7 @@ class PopularAdapter(private val context: Context) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.cityText.text = cities[position]
+        holder.itemView.setOnClickListener { listener.onItemClick(cities[position]) }
     }
 
     override fun getItemCount(): Int {

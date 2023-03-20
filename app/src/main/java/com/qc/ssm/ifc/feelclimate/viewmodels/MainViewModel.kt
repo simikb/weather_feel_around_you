@@ -14,15 +14,49 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel
-@Inject
-constructor(
-    private val mainRepository: MainRepository
-) : ViewModel() {
+class MainViewModel @Inject constructor( private val mainRepository: MainRepository)
+    :ViewModel() /*ViewModel()*/ {
     private val _dataState: MutableLiveData<DataState<ClimateModel>> = MutableLiveData()
+    private val climateData: MutableLiveData<ClimateModel> = MutableLiveData()
 
     val dataState: LiveData<DataState<ClimateModel>>
         get() = _dataState
+    val climateDatum: LiveData<ClimateModel>
+        get() = climateData
+    /*init {
+        getClimateUpdate(lat, lon);
+    }*/
+
+  /*   fun getClimateUpdate(lat: Long, lon: Long) {
+        viewModelScope.launch {
+
+            if (lat !=null && lat>0 && lon !=null && lon>0)
+           {
+                mainRepository.getClimateByLocation(
+                   lat.toString(),
+                   lon.toString()
+                )
+                    .onEach { dataState ->
+                        climateData.value = dataState
+                    }
+                    .launchIn(viewModelScope)
+
+
+             *//* val job = CoroutineScope(Dispatchers.IO ).launch {
+                   val response = mainRepository.getClimateByLocation(lat, lon)
+                   withContext(Dispatchers.Main) {
+                       if (response.isSuccessful) {
+                           _dataState.postValue(response.body())
+                           loading.value = false
+                       } else {
+                           onError("Error : ${response.message()} ")
+                       }
+                   }
+               }*//*
+            }
+        }
+
+    }*/
 
     fun setStateEvent(mainStateEvent: MainStateEvent) {
         viewModelScope.launch {

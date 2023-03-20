@@ -20,6 +20,9 @@ import com.qc.ssm.ifc.feelclimate.utils.Permissions;
 import com.qc.ssm.ifc.feelclimate.viewmodels.MainStateEvent;
 import com.qc.ssm.ifc.feelclimate.viewmodels.MainViewModel;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class StartActivity extends AppCompatActivity {
 
     //  MainViewModel viewModel;
@@ -52,9 +55,11 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(binding.containerFragment.getId(), new ClimateFragment().newInstance("", ""));
-        ft.addToBackStack(null).commit();
+        /*if(LocationDetails.Companion.getMCurrentLocation()!=null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(binding.containerFragment.getId(), new ClimateFragment().newInstance(null));
+            ft.addToBackStack(null).commit();
+        }*/
     }
 
     private void goToNext() {

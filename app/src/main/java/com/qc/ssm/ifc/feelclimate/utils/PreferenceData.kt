@@ -22,12 +22,13 @@ object PreferenceData {
         return prefs.getString(key, value)
     }
 
-    fun readLat(value: Long): Long? {
-        return prefs.getLong(currentLat, value)
+    fun readLat(): Long? {
+        return prefs.getLong(currentLat,0)
+
     }
 
-    fun readLong(value: Long): Long? {
-        return prefs.getLong(currentLong, value)
+    fun readLong(): Long? {
+        return prefs.getLong(currentLong, 0)
     }
 
     fun write(key: String, value: String) {
@@ -42,7 +43,7 @@ object PreferenceData {
         val prefsEditor: SharedPreferences.Editor = prefs.edit()
         with(prefsEditor) {
             putLong(currentLat, value)
-            putLong(currentLong, value)
+            putLong(currentLong, value2)
             commit()
         }
     }

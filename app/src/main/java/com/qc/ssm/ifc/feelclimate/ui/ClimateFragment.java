@@ -1,30 +1,42 @@
 package com.qc.ssm.ifc.feelclimate.ui;
 
+import static android.os.Build.VERSION_CODES.R;
+
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.qc.ssm.ifc.feelclimate.R;
+import com.bumptech.glide.Glide;
+import com.qc.ssm.ifc.feelclimate.databinding.ClimateHomeLayoutBinding;
+import com.qc.ssm.ifc.feelclimate.models.ClimateModel;
+
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ClimateFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+@AndroidEntryPoint
 public class ClimateFragment extends Fragment {
-
+    ClimateHomeLayoutBinding binding;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private ClimateModel mParam1;
 
     public ClimateFragment() {
         // Required empty public constructor
@@ -35,32 +47,57 @@ public class ClimateFragment extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment ClimateFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ClimateFragment newInstance(String param1, String param2) {
+    public static ClimateFragment newInstance(ClimateModel data) {
+
         ClimateFragment fragment = new ClimateFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+        if (data!=null)
+        {
+            Bundle args = new Bundle();
+            args.putSerializable(ARG_PARAM1, (Serializable) data);
+            fragment.setArguments(args);
+        }
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        if (getArguments() != null && getArguments().containsKey(ARG_PARAM1)) {
+            {
+                mParam1 = (ClimateModel) getArguments().getSerializable(ARG_PARAM1);
+            }
         }
+    }
+
+    private void getTime(long time) {
+        Date now = new Date(time);
+        String datePattern = "yyyy-mm-dd HH-MM-SS";
+        SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
+        String formattedDate = formatter.format(now);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.climate_home_layout, container, false);
+         binding = ClimateHomeLayoutBinding.inflate(inflater, container, false);
+        binding.degreeDiscText.setText(mParam1.getWeather().get(0).getMain());
+        binding.airText.setText(mParam1.getWeather().get(0).getDescription());
+        binding.nameText.setText(mParam1.getName());
+        String image=mParam1.getWeather().get(0).getIcon().trim();
+        Glide.with(getActivity().getApplicationContext()).load("https://openweathermap.org/img/wn/"+image+".png").into(binding.weatherIcon);
+        getTime(mParam1.getSys().getSunrise());
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //view.findViewById(R.id)
+       /* binding.layoutInclude.humidityText.setText(mParam1.getMain().getHumidity());
+        binding.layoutInclude.pressureText.setText(mParam1.getMain().getPressure());*/
     }
 }
