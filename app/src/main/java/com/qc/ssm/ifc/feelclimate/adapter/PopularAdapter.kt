@@ -16,18 +16,10 @@ class PopularAdapter(
 ) :
     RecyclerView.Adapter<PopularAdapter.ViewHolder>() {
     var cities = arrayListOf<String>(
-        "Delhi",
-        "Rome",
+        "Las vegas",
+        "Miami",
         "Berlin",
-        "New york",
-        "Rio de janeiro",
-        "tokyo",
-        "Mumbai",
-        "Goa",
-        "Chicago",
-        "Paris",
-        "Seoul",
-        "Moscow"
+        "San francisco"
     )
 
     init {
@@ -36,7 +28,8 @@ class PopularAdapter(
             for (i in it) {
                 cities.add(i)
             }
-            cities.removeAt(cities.size-1)
+            cities.removeAt(cities.size - 1)
+            cities.reverse()
         }
 
     }
@@ -67,7 +60,8 @@ class PopularAdapter(
         if (list != null && list.isNotEmpty()) {
             cities.addAll(list)
         }
-        cities.removeAt(cities.size-1)
+        cities.removeAt(cities.size - 1)
+        cities.reverse()
         notifyDataSetChanged()
     }
 }

@@ -130,7 +130,6 @@ class SearchActivity : AppCompatActivity() {
                 }
             }
             needToSave.add("${data.name},")
-            needToSave.reverse()
             var builder = java.lang.StringBuilder();
             var count = 0
             for (i in needToSave) {
