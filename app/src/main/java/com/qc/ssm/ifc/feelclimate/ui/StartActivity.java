@@ -56,11 +56,6 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        /*if(LocationDetails.Companion.getMCurrentLocation()!=null) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(binding.containerFragment.getId(), new ClimateFragment().newInstance(null));
-            ft.addToBackStack(null).commit();
-        }*/
     }
 
     private void goToNext() {

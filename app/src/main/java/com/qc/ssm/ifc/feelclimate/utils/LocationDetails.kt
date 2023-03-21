@@ -48,7 +48,7 @@ class LocationDetails(var context: Context) {
                             mCurrentLocation?.latitude?.toLong()
                                 ?.let { it1 -> PreferenceData.writeLoc(it1, it) }
                         }
-                    var mLastUpdateTime = DateFormat.getTimeInstance().format(Date())
+
                 }
             }
         }
@@ -126,7 +126,7 @@ class LocationDetails(var context: Context) {
                                     100
                                 )
                             } catch (sie: IntentSender.SendIntentException) {
-                                ///  Log.i("lllll", "PendingIntent unable to execute request.")
+                                Log.i("exception", "PendingIntent unable to execute request.")
                             }
                         }
                         LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {

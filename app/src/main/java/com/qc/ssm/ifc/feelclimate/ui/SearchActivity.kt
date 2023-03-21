@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SearchActivity : AppCompatActivity() {
-    private lateinit var viewModel: ClimateViewModel //by viewModels();
+    private lateinit var viewModel: ClimateViewModel
     private lateinit var binding: ActivitySearchBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,21 +73,15 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun subscribeObservers() {
-        /* viewModel.climateDatum.observe(this, Observer { dataState ->
-             populateRecyclerView(dataState.data)
-         })*/
 
         viewModel.climateDatum.observe(this, Observer { dataState ->
             when (dataState) {
                 is DataState.Success<ClimateModel> -> {
-                    // displayLoading(false)
                     populateView(dataState.data)
                 }
                 is DataState.Loading -> {
-                    //displayLoading(true)
                 }
                 is DataState.Error -> {
-                    //displayLoading(false)
                     displayError(dataState.exception.message)
                 }
             }
@@ -116,6 +110,10 @@ class SearchActivity : AppCompatActivity() {
     private fun populateView(data: ClimateModel) {
         if (data != null) {
             PreferenceData.writeLastQuery(data.name)
+            val list = PreferenceData.read()?.split(",".toRegex())?.toTypedArray()
+            if (list != null) {
+                for (i in list) {}
+            }
             val ft = supportFragmentManager.beginTransaction()
             ft.replace(binding.containerFragment.getId(), ClimateFragment.newInstance(data))
             ft.addToBackStack(null).commit()
@@ -138,7 +136,7 @@ class SearchActivity : AppCompatActivity() {
             dialog.setTitle("How you wants to searching?")
             layout.currentLocationButton.setOnClickListener {
                 LocationDetails(this@SearchActivity).initCall();
-                var locationDetails = LocationDetails(context);
+
                 LocationDetails.mCurrentLocation.let {
                     var lat = LocationDetails.mCurrentLocation?.latitude
                     var lon = LocationDetails.mCurrentLocation?.longitude

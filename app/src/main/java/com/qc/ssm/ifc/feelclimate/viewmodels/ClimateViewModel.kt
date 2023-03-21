@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.qc.ssm.ifc.feelclimate.models.ClimateModel
-import com.qc.ssm.ifc.feelclimate.repository.MainRepository
+import com.qc.ssm.ifc.feelclimate.repository.ClimateRepository
 import com.qc.ssm.ifc.feelclimate.utils.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -20,10 +20,9 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class ClimateViewModel @Inject constructor(var mainRepository: MainRepository) : ViewModel() {
+class ClimateViewModel @Inject constructor(var climateRepository: ClimateRepository) : ViewModel() {
     private val climateData: MutableLiveData<DataState<ClimateModel>> = MutableLiveData()
     private val climateSingleData: MutableLiveData<ClimateModel> = MutableLiveData()
-    private val mutableClimateData: MutableLiveData<ClimateModel> = MutableLiveData()
     private val error: MutableLiveData<String> = MutableLiveData()
     val errorResponse: LiveData<String>
         get() = error
@@ -39,8 +38,7 @@ class ClimateViewModel @Inject constructor(var mainRepository: MainRepository) :
 
     fun getClimateUpdate(lat: String, lon: String) {
         GlobalScope.launch(Dispatchers.IO) {
-
-            /*var response=*/ mainRepository.getClimateByLocation(
+            climateRepository.getClimateByLocation(
             lat,
             lon
         )
@@ -48,19 +46,16 @@ class ClimateViewModel @Inject constructor(var mainRepository: MainRepository) :
                 climateData.value = dataState
             }
             .launchIn(viewModelScope)
-            // mutableClimateData.value=response.value;
         }
     }
 
     fun getClimateUpdateByPlaceName(name: String) {
         GlobalScope.launch(Dispatchers.IO) {
-
-            /*var response=*/ mainRepository.getClimate(name)
+             climateRepository.getClimate(name)
             .onEach { dataState ->
                 climateData.value = dataState
             }
             .launchIn(viewModelScope)
-            // mutableClimateData.value=response.value;
         }
 
 
@@ -69,15 +64,13 @@ class ClimateViewModel @Inject constructor(var mainRepository: MainRepository) :
     fun getClimateUpdates(lat: String, lon: String) {
         GlobalScope.launch(Dispatchers.IO) {
 
-            var response = mainRepository.getClimateByLocations(lat, lon)
+            var response = climateRepository.getClimateByLocations(lat, lon)
             response.enqueue(object : Callback<ClimateModel> {
                 override fun onResponse(
                     call: Call<ClimateModel>,
                     response: Response<ClimateModel>
                 ) {
                     Log.e("network_response", response.body().toString())
-                    // var data:DataState<ClimateModel> ;
-                    var data = DataState.Success(response.body())!!
                     climateSingleData.value = response.body()
                 }
 
@@ -94,15 +87,13 @@ class ClimateViewModel @Inject constructor(var mainRepository: MainRepository) :
 
     fun getClimateUpdateByPlaceNames(name: String) {
         GlobalScope.launch(Dispatchers.IO) {
-            var response = mainRepository.getClimates(name)
+            var response = climateRepository.getClimates(name)
             response.enqueue(object : Callback<ClimateModel> {
                 override fun onResponse(
                     call: Call<ClimateModel>,
                     response: Response<ClimateModel>
                 ) {
                     Log.e("network_response", response.body().toString())
-                    // var data:DataState<ClimateModel> ;
-                    var data = DataState.Success(response.body())!!
                     climateSingleData.value = response.body()
                 }
 

@@ -1,7 +1,7 @@
-package com.qc.ssm.ifc.feelclimate.utils
+package com.qc.ssm.ifc.feelclimate
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class MyApplication : Application()
+class WeatherApplication : Application()

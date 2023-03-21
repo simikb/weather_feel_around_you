@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:layout_margin="@dimen/small_padding"
     android:background="@color/light_blue"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/climate_home_layout">
@@ -19,7 +19,7 @@
             android:id="@+id/cardOne"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp"
+            app:cardCornerRadius="@dimen/small_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -38,7 +38,7 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/small_padding"
                     android:layout_marginTop="40dp"
                     android:orientation="horizontal">
 
@@ -47,20 +47,20 @@
                         style="@style/text_bold_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="SunRise" />
+                        android:text="@string/text_sunrise" />
 
                     <TextView
                         style="@style/text_normal_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="Sunrise" />
+                        android:layout_marginStart="@dimen/small_padding"
+                        android:text="@string/text_sunrise" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_margin="@dimen/small_padding"
                     android:orientation="horizontal">
 
                     <TextView
@@ -68,14 +68,14 @@
                         style="@style/text_bold_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sunset" />
+                        android:text="@string/text_get_sunset" />
 
                     <TextView
                         style="@style/text_normal_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="Sunset" />
+                        android:layout_marginStart="@dimen/small_padding"
+                        android:text="@string/text_get_sunset" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.cardview.widget.CardView>
@@ -84,9 +84,9 @@
             android:id="@+id/CardTwo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/small_padding"
             android:background="@color/dark_blue"
-            app:cardCornerRadius="10dp"
+            app:cardCornerRadius="@dimen/small_padding"
             app:layout_constraintTop_toBottomOf="@+id/cardOne"
             tools:layout_editor_absoluteX="1dp">
 
@@ -106,14 +106,14 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:padding="@dimen/small_padding">
 
                     <TextView
 
                         style="@style/text_normal_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Humidity"
+                        android:text="@string/text_humidity"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -123,7 +123,7 @@
                         style="@style/text_bold_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="-"
+                        android:text="@string/text_slash"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -132,34 +132,34 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height=".5dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/small_padding"
                         android:background="@color/gray"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/humidityText"
-                        tools:layout_editor_absoluteX="10dp" />
+                        tools:layout_editor_absoluteX="@dimen/small_padding" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height=".5dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/small_padding"
                         android:background="@color/gray"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/humidityText"
                         app:layout_constraintVertical_bias="0.0"
-                        tools:layout_editor_absoluteX="10dp" />
+                        tools:layout_editor_absoluteX="@dimen/small_padding" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:padding="@dimen/small_padding">
 
                     <TextView
 
                         style="@style/text_normal_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="UV"
+                        android:text="@string/text_uv"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -169,7 +169,7 @@
                         style="@style/text_bold_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="-"
+                        android:text="@string/text_slash"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -178,24 +178,24 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height=".5dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/small_padding"
                         android:background="@color/gray"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/uvText"
-                        tools:layout_editor_absoluteX="10dp" />
+                        tools:layout_editor_absoluteX="@dimen/small_padding" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:padding="@dimen/small_padding">
 
                     <TextView
 
                         style="@style/text_normal_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pressure"
+                        android:text="@string/text_pressure"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -205,7 +205,7 @@
                         style="@style/text_bold_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="-"
+                        android:text="@string/text_slash"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -214,56 +214,23 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height=".5dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/small_padding"
                         android:background="@color/gray"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/pressureText"
-                        tools:layout_editor_absoluteX="10dp" />
+                        tools:layout_editor_absoluteX="@dimen/small_padding" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-                <!-- <androidx.constraintlayout.widget.ConstraintLayout
-                     android:layout_width="match_parent"
-                     android:padding="10dp"
-                     android:layout_height="wrap_content"
-                     >
 
-                     <TextView
-
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:text="Humidity"
-                         app:layout_constraintBottom_toBottomOf="parent"
-                         app:layout_constraintStart_toStartOf="parent"
-                         app:layout_constraintTop_toTopOf="parent" />
-
-                     <TextView
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:text="40%"
-                         android:id="@+id/humidityText"
-                         android:textStyle="bold"
-                         app:layout_constraintBottom_toBottomOf="parent"
-                         app:layout_constraintEnd_toEndOf="parent"
-                         app:layout_constraintTop_toTopOf="parent" />
-
-                     <View
-                         android:layout_width="match_parent"
-                         android:layout_height=".5dp"
-                         android:background="@color/gray"
-                         android:layout_marginTop="10dp"
-                         app:layout_constraintBottom_toBottomOf="parent"
-                         app:layout_constraintTop_toBottomOf="@+id/humidityText"
-                         tools:layout_editor_absoluteX="10dp" />
-                 </androidx.constraintlayout.widget.ConstraintLayout>-->
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="@dimen/small_padding"
+            android:layout_marginTop="@dimen/small_padding"
             android:backgroundTint="@color/dark_blue"
             android:visibility="gone"
-            app:cardCornerRadius="10dp"
+            app:cardCornerRadius="@dimen/small_padding"
             app:layout_constraintTop_toBottomOf="@+id/CardTwo"
             tools:layout_editor_absoluteX=".5dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>

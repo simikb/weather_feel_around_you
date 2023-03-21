@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.qc.ssm.ifc.feelclimate.R
 import com.qc.ssm.ifc.feelclimate.ui.SearchActivity
+import com.qc.ssm.ifc.feelclimate.utils.PreferenceData
 
 class PopularAdapter(
     private val context: Context,
@@ -28,6 +29,20 @@ class PopularAdapter(
         "Seoul",
         "Moscow"
     )
+    init {
+        splitCitiesFromHistory()
+    }
+
+    private fun splitCitiesFromHistory()
+    {
+       PreferenceData.init(context);
+        val list = PreferenceData.read()?.split(",".toRegex())?.toTypedArray()
+        if (list != null) {
+            cities.clear();
+            for (i in list)
+            {cities.add(i)}
+        }
+    }
 
     class ViewHolder(var v: View) : RecyclerView.ViewHolder(v) {
         val cityText: TextView = itemView.findViewById(R.id.cityText)

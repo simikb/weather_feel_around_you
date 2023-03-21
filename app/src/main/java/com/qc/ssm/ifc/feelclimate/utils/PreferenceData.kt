@@ -10,7 +10,7 @@ object PreferenceData {
     private const val PREFS_NAME = "shared_params"
 
     const val lastQuery = "last_Query"
-    const val currentQuery = "current_Query"
+    const val historyQuery = "history_Query"
     const val currentLat = "Lat"
     const val currentLong = "Long"
 
@@ -18,8 +18,8 @@ object PreferenceData {
         prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
 
-    fun read(key: String, value: String): String? {
-        return prefs.getString(key, value)
+    fun read(): String? {
+        return prefs.getString(historyQuery, "")
     }
 
     fun readLast(): String? {
@@ -52,6 +52,13 @@ object PreferenceData {
         with(prefsEditor) {
             putLong(currentLat, value)
             putLong(currentLong, value2)
+            commit()
+        }
+    }
+    fun writeHistory(value:String) {
+        val prefsEditor: SharedPreferences.Editor = prefs.edit()
+        with(prefsEditor) {
+            putString(currentLat, value)
             commit()
         }
     }

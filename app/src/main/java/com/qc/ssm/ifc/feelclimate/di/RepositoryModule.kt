@@ -1,7 +1,7 @@
 package com.qc.ssm.ifc.feelclimate.di
 
 import com.qc.ssm.ifc.feelclimate.network.ClimateApi
-import com.qc.ssm.ifc.feelclimate.repository.MainRepository
+import com.qc.ssm.ifc.feelclimate.repository.ClimateRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +17,7 @@ object RepositoryModule {
     @Provides
     fun provideMainRepository(
         climateApi: ClimateApi
-    ): MainRepository {
-        return MainRepository(climateApi)
+    ): ClimateRepository {
+        return ClimateRepository(climateApi)
     }
 }
