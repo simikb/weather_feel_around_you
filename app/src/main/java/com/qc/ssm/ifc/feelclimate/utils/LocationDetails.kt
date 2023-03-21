@@ -13,7 +13,6 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
-import java.text.DateFormat
 import java.util.*
 
 class LocationDetails(var context: Context) {
@@ -54,13 +53,11 @@ class LocationDetails(var context: Context) {
         }
 
         mRequestingLocationUpdates = false
-
-        mLocationRequest = LocationRequest()
-        //   mLocationRequest = LocationRequest.create();
-        mLocationRequest!!.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS)
-        // mLocationRequest!!.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS)
-        // mLocationRequest!!.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-
+        mLocationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000)
+            .setWaitForAccurateLocation(false)
+            .setMinUpdateIntervalMillis(500)
+            .setMaxUpdateDelayMillis(1000)
+            .build()
         val builder = LocationSettingsRequest.Builder()
         builder.addLocationRequest(mLocationRequest!!)
         mLocationSettingsRequest = builder.build()
