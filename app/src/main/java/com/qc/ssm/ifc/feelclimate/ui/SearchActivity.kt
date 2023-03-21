@@ -26,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SearchActivity : AppCompatActivity() {
     private lateinit var viewModel: ClimateViewModel
     private lateinit var binding: ActivitySearchBinding
+    private lateinit var popularAdapter: PopularAdapter;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBinding.inflate(layoutInflater)
@@ -99,6 +100,16 @@ class SearchActivity : AppCompatActivity() {
 
     }
 
+    private fun splitCitiesFromHistory(): Array<String>? {
+        PreferenceData.init(this@SearchActivity);
+        val list: Array<String>? = PreferenceData.read()?.split(",".toRegex())?.toTypedArray()
+        if (list != null && list.isNotEmpty()) {
+            return list;
+        }
+        return null;
+    }
+
+
     private fun displayError(message: String?) {
         if (message.isNullOrEmpty()) {
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
@@ -110,21 +121,38 @@ class SearchActivity : AppCompatActivity() {
     private fun populateView(data: ClimateModel) {
         if (data != null) {
             PreferenceData.writeLastQuery(data.name)
-            val list = PreferenceData.read()?.split(",".toRegex())?.toTypedArray()
-            if (list != null) {
-                for (i in list) {}
+            val list = splitCitiesFromHistory()
+            var needToSave = ArrayList<String>()
+            list?.let {
+                for (i in it) {
+                    if (!i.equals(data.name) && i.isNotEmpty())
+                        needToSave.add("$i,")
+                }
             }
+            needToSave.add("${data.name},")
+            needToSave.reverse()
+            var builder = java.lang.StringBuilder();
+            var count = 0
+            for (i in needToSave) {
+                if (count < 10) {
+                    builder.append(i.trim())
+                }
+                count++
+            }
+            PreferenceData.writeHistory(builder.toString())
+
             val ft = supportFragmentManager.beginTransaction()
             ft.replace(binding.containerFragment.getId(), ClimateFragment.newInstance(data))
             ft.addToBackStack(null).commit()
-
+            popularAdapter.setData(splitCitiesFromHistory());
         }
     }
 
     private fun setPopularListing() {
         binding.popularRec.layoutManager =
             StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL)
-        binding.popularRec.adapter = PopularAdapter(this@SearchActivity, listener)
+        popularAdapter = PopularAdapter(this@SearchActivity, listener, splitCitiesFromHistory())
+        binding.popularRec.adapter = popularAdapter;
     }
 
     private fun showOptionDialog(context: Context) {

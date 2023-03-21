@@ -19,11 +19,11 @@ object PreferenceData {
     }
 
     fun read(): String? {
-        return prefs.getString(historyQuery, "")
+        return prefs.getString(historyQuery, null)
     }
 
     fun readLast(): String? {
-        return prefs.getString(lastQuery, "")
+        return prefs.getString(lastQuery, null)
     }
 
     fun readLat(): Long? {
@@ -58,7 +58,7 @@ object PreferenceData {
     fun writeHistory(value:String) {
         val prefsEditor: SharedPreferences.Editor = prefs.edit()
         with(prefsEditor) {
-            putString(currentLat, value)
+            putString(historyQuery, value)
             commit()
         }
     }

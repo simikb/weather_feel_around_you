@@ -56,7 +56,7 @@
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleText" />
+        app:layout_constraintTop_toBottomOf="@+id/locationText" />
 
     <TextView
         android:id="@+id/locationText"
@@ -69,7 +69,7 @@
         android:paddingRight="15dp"
         android:text="@string/text_current_location"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/popularRec" />
+        app:layout_constraintTop_toBottomOf="@+id/titleText" />
 
     <FrameLayout
         android:id="@+id/containerFragment"

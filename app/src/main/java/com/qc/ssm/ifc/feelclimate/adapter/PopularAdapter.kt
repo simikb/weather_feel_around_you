@@ -8,11 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.qc.ssm.ifc.feelclimate.R
 import com.qc.ssm.ifc.feelclimate.ui.SearchActivity
-import com.qc.ssm.ifc.feelclimate.utils.PreferenceData
 
 class PopularAdapter(
     private val context: Context,
-    var listener: SearchActivity.OnItemClickListener
+    var listener: SearchActivity.OnItemClickListener,
+    var list: Array<String>?
 ) :
     RecyclerView.Adapter<PopularAdapter.ViewHolder>() {
     var cities = arrayListOf<String>(
@@ -29,20 +29,18 @@ class PopularAdapter(
         "Seoul",
         "Moscow"
     )
+
     init {
-        splitCitiesFromHistory()
+        list?.let {
+            cities.clear()
+            for (i in it) {
+                cities.add(i)
+            }
+            cities.removeAt(cities.size-1)
+        }
+
     }
 
-    private fun splitCitiesFromHistory()
-    {
-       PreferenceData.init(context);
-        val list = PreferenceData.read()?.split(",".toRegex())?.toTypedArray()
-        if (list != null) {
-            cities.clear();
-            for (i in list)
-            {cities.add(i)}
-        }
-    }
 
     class ViewHolder(var v: View) : RecyclerView.ViewHolder(v) {
         val cityText: TextView = itemView.findViewById(R.id.cityText)
@@ -62,5 +60,14 @@ class PopularAdapter(
 
     override fun getItemCount(): Int {
         return cities.size
+    }
+
+    fun setData(list: Array<String>?) {
+        cities.clear()
+        if (list != null && list.isNotEmpty()) {
+            cities.addAll(list)
+        }
+        cities.removeAt(cities.size-1)
+        notifyDataSetChanged()
     }
 }
